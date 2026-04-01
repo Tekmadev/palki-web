@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 import { banquetPackages, banquetAmenities, eventTypes } from '@/data/banquet';
+import { business } from '@/data/business';
 import { Check, Sparkles, ArrowLeft, Phone, Mail, Users } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -208,7 +209,7 @@ function InquiryForm() {
         </p>
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/" className="btn btn-outline">Back to Home</Link>
-          <a href="tel:+16131234567" className="btn btn-primary">
+          <a href={business.phone.tel} className="btn btn-primary">
             <Phone size={16} />
             Call Us Now
           </a>
@@ -503,9 +504,9 @@ export default function BanquetPage() {
                 <Sparkles size={16} />
                 Get a Quote
               </a>
-              <a href="tel:+16131234567" className="btn btn-outline">
+              <a href={business.phone.tel} className="btn btn-outline">
                 <Phone size={16} />
-                (613) 123-4567
+                {business.phone.display}
               </a>
             </div>
           </div>
@@ -632,9 +633,9 @@ export default function BanquetPage() {
 
             {/* Direct contact */}
             <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
-              <a href="tel:+16131234567" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(253, 246, 236, 0.5)', fontSize: '0.85rem', textDecoration: 'none' }}>
+              <a href={business.phone.tel} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(253, 246, 236, 0.5)', fontSize: '0.85rem', textDecoration: 'none' }}>
                 <Phone size={14} color="#F4BB44" />
-                (613) 123-4567
+                {business.phone.display}
               </a>
               <a href="mailto:events@palki.ca" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(253, 246, 236, 0.5)', fontSize: '0.85rem', textDecoration: 'none' }}>
                 <Mail size={14} color="#F4BB44" />

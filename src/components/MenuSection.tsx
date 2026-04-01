@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flame, ArrowRight } from 'lucide-react';
 import { menuItems, menuCategories, type MenuCategory } from '@/data/menu';
+import { business } from '@/data/business';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -326,7 +327,7 @@ export default function MenuSection() {
           <p style={{ color: 'rgba(253,246,236,0.3)', fontSize: '0.78rem', letterSpacing: '0.04em' }}>
             Showing a selection — full menu available in-house &amp; by request
           </p>
-          <a href="tel:+16131234567" className="link-arrow">
+          <a href={business.phone.tel} className="link-arrow">
             Full menu &amp; daily specials <ArrowRight size={13} />
           </a>
         </div>

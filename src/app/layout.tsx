@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+import { business } from "@/data/business";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-display",
@@ -18,22 +19,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Palki: Cuisine of India | Authentic Indian Restaurant Ottawa",
-  description:
-    "Experience the finest authentic Indian cuisine in Ottawa. Palki Restaurant offers an exquisite dining experience, premium banquet hall for 150 guests, and direct online ordering. Reserve your table today.",
-  keywords: [
-    "Indian restaurant Ottawa",
-    "Palki restaurant",
-    "authentic Indian cuisine",
-    "banquet hall Ottawa",
-    "Indian food Ottawa",
-    "fine dining Ottawa",
-    "curry Ottawa",
-    "wedding reception Ottawa",
-  ],
+  title: business.seo.title,
+  description: business.seo.description,
+  keywords: [...business.seo.keywords],
   openGraph: {
-    title: "Palki: Cuisine of India",
-    description: "Premium authentic Indian cuisine & banquet hall in Ottawa. Reserve your table or plan your event today.",
+    title: business.fullName,
+    description: business.seo.description,
     type: "website",
     locale: "en_CA",
   },

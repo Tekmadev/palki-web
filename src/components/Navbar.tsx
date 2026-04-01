@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { Menu, X, UtensilsCrossed } from 'lucide-react';
+import { business } from '@/data/business';
 
 const navLinks = [
-  { label: 'Menu', href: '#menu' },
+  { label: 'Menu', href: '/menu' },
   { label: 'Banquets', href: '/banquet' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
@@ -180,7 +181,7 @@ export default function Navbar() {
 
               {/* CTA */}
               <a
-                href="tel:+16131234567"
+                href={business.phone.tel}
                 className="btn btn-primary"
                 style={{ padding: '0.65rem 1.5rem', fontSize: '0.8rem' }}
               >
@@ -263,7 +264,7 @@ export default function Navbar() {
               )
             )}
             <a
-              href="tel:+16131234567"
+              href={business.phone.tel}
               className="btn btn-primary"
               style={{ marginTop: '0.5rem', justifyContent: 'center' }}
             >

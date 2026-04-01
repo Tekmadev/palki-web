@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, Suspense } from 'react';
+import React, { useRef, useEffect, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, Instances, Instance } from '@react-three/drei';
 import * as THREE from 'three';
@@ -218,7 +218,11 @@ function GlowParticles() {
 export default function SpiceCanvas() {
   const mouse = useRef<[number, number]>([0, 0]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [iosPermission, setIosPermission] = React.useState<'unknown' | 'granted' | 'denied'>('unknown');
+  const needsIosPrompt = typeof window !== 'undefined' &&
+    typeof (DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> }).requestPermission === 'function';
 
+  // Mouse tracking (desktop)
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouse.current = [e.clientX, e.clientY];
@@ -227,12 +231,82 @@ export default function SpiceCanvas() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Gyroscope tracking (mobile)
+  useEffect(() => {
+    const handleOrientation = (e: DeviceOrientationEvent) => {
+      // gamma: left/right tilt (-90..90), beta: front/back (-180..180)
+      const gamma = e.gamma ?? 0; // left/right → drives X axis
+      const beta  = e.beta  ?? 0; // front/back → drives Y axis, clamp to useful range
+
+      // Map to synthetic mouse coords so SpiceGroup reuses the same math
+      const clampedGamma = Math.max(-45, Math.min(45, gamma));
+      const clampedBeta  = Math.max(-30, Math.min(60, beta - 30)); // offset: phone held upright ≈ beta 30°
+
+      mouse.current = [
+        window.innerWidth  * (0.5 + clampedGamma / 90),
+        window.innerHeight * (0.5 + clampedBeta  / 90),
+      ];
+    };
+
+    const attach = () => window.addEventListener('deviceorientation', handleOrientation);
+
+    // iOS 13+ requires explicit permission
+    const DOR = DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> };
+    if (typeof DOR.requestPermission === 'function') {
+      if (iosPermission === 'granted') attach();
+    } else {
+      // Android / desktop — no prompt needed
+      attach();
+    }
+
+    return () => window.removeEventListener('deviceorientation', handleOrientation);
+  }, [iosPermission]);
+
+  const requestIosPermission = async () => {
+    const DOR = DeviceOrientationEvent as unknown as { requestPermission: () => Promise<string> };
+    try {
+      const result = await DOR.requestPermission();
+      setIosPermission(result === 'granted' ? 'granted' : 'denied');
+    } catch {
+      setIosPermission('denied');
+    }
+  };
+
   return (
     <div
       ref={containerRef}
       className="absolute inset-0 w-full h-full"
       style={{ pointerEvents: 'none' }}
     >
+      {/* iOS gyro permission prompt — only shown on iPhone/iPad before permission granted */}
+      {needsIosPrompt && iosPermission === 'unknown' && (
+        <button
+          onClick={requestIosPermission}
+          style={{
+            position: 'absolute',
+            bottom: '1.5rem',
+            right: '1.5rem',
+            zIndex: 10,
+            pointerEvents: 'auto',
+            background: 'rgba(13,4,9,0.75)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(244,187,68,0.35)',
+            borderRadius: '999px',
+            padding: '0.45rem 1rem',
+            color: '#F4BB44',
+            fontSize: '0.7rem',
+            fontWeight: 600,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+          }}
+        >
+          <span>🌀</span> Enable Motion
+        </button>
+      )}
       <Canvas
         camera={{ position: [0, 0, 5], fov: 60 }}
         gl={{ antialias: true, alpha: true }}

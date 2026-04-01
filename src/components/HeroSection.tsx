@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import dynamic from 'next/dynamic';
 import { ChevronDown } from 'lucide-react';
+import { business } from '@/data/business';
 
 const SpiceCanvas = dynamic(() => import('./SpiceCanvas'), { ssr: false });
 
@@ -162,7 +163,7 @@ export default function HeroSection() {
                 color: 'rgba(253,246,236,0.35)',
               }}
             >
-              Ottawa · Since 2004
+              Ottawa · Since {business.established}
             </span>
           </div>
 
@@ -249,7 +250,7 @@ export default function HeroSection() {
             style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}
           >
             <a
-              href="tel:+16131234567"
+              href={business.phone.tel}
               className="btn btn-primary"
               style={{ fontSize: '0.88rem', padding: '1rem 2.2rem' }}
             >

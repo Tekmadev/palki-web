@@ -2,13 +2,9 @@
 
 import Link from 'next/link';
 import { Phone, MapPin, Clock, Instagram, Facebook, UtensilsCrossed } from 'lucide-react';
+import { business } from '@/data/business';
 
-const hours = [
-  { day: 'Monday – Thursday', time: '11:30 AM – 9:30 PM' },
-  { day: 'Friday', time: '11:30 AM – 10:30 PM' },
-  { day: 'Saturday', time: '12:00 PM – 10:30 PM' },
-  { day: 'Sunday', time: '12:00 PM – 9:00 PM' },
-];
+const { hours } = business;
 
 const footerLinks = {
   Explore: [
@@ -85,13 +81,13 @@ export default function Footer() {
               </div>
             </div>
             <p style={{ color: 'rgba(253, 246, 236, 0.5)', fontSize: '0.875rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-              Serving Ottawa&apos;s finest authentic Indian cuisine since 2004. Where every meal is a celebration.
+              Serving Ottawa&apos;s finest authentic Indian cuisine since {business.established}. Where every meal is a celebration.
             </p>
             {/* Social Icons */}
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               {[
-                { icon: <Instagram size={18} />, href: 'https://instagram.com/palki_ottawa', label: 'Instagram' },
-                { icon: <Facebook size={18} />, href: 'https://facebook.com/palki.ottawa', label: 'Facebook' },
+                { icon: <Instagram size={18} />, href: business.social.instagram, label: 'Instagram' },
+                { icon: <Facebook size={18} />, href: business.social.facebook, label: 'Facebook' },
               ].map((social) => (
                 <a
                   key={social.label}
@@ -202,20 +198,20 @@ export default function Footer() {
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <a
-                href="tel:+16131234567"
+                href={business.phone.tel}
                 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(253, 246, 236, 0.6)', fontSize: '0.875rem', textDecoration: 'none' }}
               >
                 <Phone size={14} color="#F4BB44" />
-                (613) 123-4567
+                {business.phone.display}
               </a>
               <a
-                href="https://maps.google.com/?q=Palki+Restaurant+Ottawa"
+                href={business.address.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', color: 'rgba(253, 246, 236, 0.6)', fontSize: '0.875rem', textDecoration: 'none' }}
               >
                 <MapPin size={14} color="#F4BB44" style={{ marginTop: '2px', flexShrink: 0 }} />
-                <span>123 Bank Street, Ottawa, ON K1P 5N2</span>
+                <span>{business.address.full}</span>
               </a>
             </div>
 
