@@ -63,10 +63,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  min-width: 0; /* prevents flex/grid children from overflowing */
 }
 
 html {
   scroll-behavior: auto; /* Lenis handles this */
+  overflow-x: clip;      /* clip is stronger than hidden — stops horizontal scroll
+                            without breaking position:sticky */
+  max-width: 100%;
 }
 
 body {
@@ -76,8 +80,20 @@ body {
   font-size: 16px;
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent any section or main from blowing out horizontally */
+main, section, footer, header, nav {
+  max-width: 100%;
+}
+
+/* Responsive images & media */
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ============================================

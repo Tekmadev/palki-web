@@ -70,7 +70,7 @@ export default function BanquetSection() {
         </div>
 
         {/* ── Two-column: large bold text left, content right ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))', gap: '5rem', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '5rem', alignItems: 'start' }}>
 
           {/* LEFT */}
           <div ref={leftRef} style={{ opacity: 0 }}>

@@ -136,7 +136,7 @@ export default function MenuSection() {
         {/* Featured items grid */}
         <div
           ref={gridRef}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', borderBottom: '1px solid rgba(244,187,68,0.18)' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))', borderBottom: '1px solid rgba(244,187,68,0.18)' }}
         >
           {featuredItems.map((item, i) => (
             <MenuCard key={item.id} item={item} index={i} />

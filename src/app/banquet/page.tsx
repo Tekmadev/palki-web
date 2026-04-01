@@ -248,7 +248,7 @@ function InquiryForm() {
       style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
     >
       {/* Name + Email */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: '1rem' }}>
         <div>
           <label style={labelStyle} htmlFor="name">Full Name *</label>
           <input
@@ -282,7 +282,7 @@ function InquiryForm() {
       </div>
 
       {/* Phone + Package */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: '1rem' }}>
         <div>
           <label style={labelStyle} htmlFor="phone">Phone Number *</label>
           <input
@@ -320,7 +320,7 @@ function InquiryForm() {
       </div>
 
       {/* Event Type + Date */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: '1rem' }}>
         <div>
           <label style={labelStyle} htmlFor="eventType">Event Type *</label>
           <select
@@ -356,7 +356,7 @@ function InquiryForm() {
       </div>
 
       {/* Guest Count + Dietary */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: '1rem' }}>
         <div>
           <label style={labelStyle} htmlFor="guestCount">Estimated Guests *</label>
           <input
@@ -521,7 +521,7 @@ export default function BanquetPage() {
               </h2>
               <div className="gold-line" style={{ margin: '1rem auto 0' }} />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: '1.25rem' }}>
               {banquetAmenities.map((amenity) => (
                 <div
                   key={amenity.title}
@@ -548,7 +548,7 @@ export default function BanquetPage() {
               </h2>
               <div className="gold-line" style={{ margin: '1rem auto 0' }} />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(160px, 100%), 1fr))', gap: '1rem' }}>
               {['Main Hall', 'Décor Setup', 'Live Tandoor', 'Private Dining', 'Cocktail Area', 'Bridal Table'].map((label, i) => (
                 <div
                   key={label}
@@ -591,7 +591,7 @@ export default function BanquetPage() {
               </h2>
               <div className="gold-line" style={{ margin: '1rem auto 0' }} />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', alignItems: 'start' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: '1.5rem', alignItems: 'start' }}>
               {banquetPackages.map((pkg, i) => (
                 <PackageCard key={pkg.id} pkg={pkg} index={i} />
               ))}

@@ -74,7 +74,7 @@ export default function TestimonialsSection() {
               className="review-row"
               style={{
                 display: 'grid',
-                gridTemplateColumns: '3rem 1fr auto',
+                gridTemplateColumns: '2.5rem 1fr auto',
                 gap: '1.5rem',
                 padding: '2rem 0',
                 borderTop: i === 0
