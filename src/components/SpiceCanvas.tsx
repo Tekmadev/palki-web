@@ -219,8 +219,14 @@ export default function SpiceCanvas() {
   const mouse = useRef<[number, number]>([0, 0]);
   const containerRef = useRef<HTMLDivElement>(null);
   const [iosPermission, setIosPermission] = React.useState<'unknown' | 'granted' | 'denied'>('unknown');
-  const needsIosPrompt = typeof window !== 'undefined' &&
-    typeof (DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> }).requestPermission === 'function';
+  const [needsIosPrompt, setNeedsIosPrompt] = React.useState(false);
+
+  // Detect iOS permission requirement client-side only to avoid hydration mismatch
+  useEffect(() => {
+    setNeedsIosPrompt(
+      typeof (DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> }).requestPermission === 'function'
+    );
+  }, []);
 
   // Mouse tracking (desktop)
   useEffect(() => {

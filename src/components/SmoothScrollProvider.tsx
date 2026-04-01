@@ -15,28 +15,34 @@ export default function SmoothScrollProvider({
   const lenisRef = useRef<InstanceType<typeof Lenis> | null>(null);
 
   useEffect(() => {
+    // Lenis causes scroll-snap-to-top bugs on mobile touch devices.
+    // Native iOS/Android scroll is already smooth — skip Lenis on touch.
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    if (isTouchDevice) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 2,
       infinite: false,
     });
 
     lenisRef.current = lenis;
 
-    // Sync Lenis with GSAP ticker
+    lenis.on('scroll', ScrollTrigger.update);
+
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
 
     gsap.ticker.lagSmoothing(0);
 
-    // Expose lenis globally for scroll-to usage
     (window as unknown as Record<string, unknown>).__lenis = lenis;
 
     return () => {
+      lenis.off('scroll', ScrollTrigger.update);
       lenis.destroy();
       lenisRef.current = null;
+      (window as unknown as Record<string, unknown>).__lenis = undefined;
     };
   }, []);
 

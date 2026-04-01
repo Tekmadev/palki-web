@@ -253,7 +253,7 @@ export default function Footer() {
           }}
         >
           <p style={{ color: 'rgba(253, 246, 236, 0.3)', fontSize: '0.78rem' }}>
-            © {new Date().getFullYear()} Palki: Cuisine of India. All rights reserved.
+            © 2026 Palki: Cuisine of India. All rights reserved.
           </p>
           <p style={{ color: 'rgba(253, 246, 236, 0.25)', fontSize: '0.75rem' }}>
             Designed & built by{' '}

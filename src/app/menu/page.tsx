@@ -29,25 +29,11 @@ const dietBadge: Record<string, { label: string; color: string; bg: string }> = 
 
 /* ─── Menu Item Card ─────────────────────────────────────────── */
 function MenuCard({ item }: { item: MenuItem }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    gsap.fromTo(
-      ref.current,
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 92%', once: true },
-      }
-    );
-  }, []);
-
+  // No per-card ScrollTrigger — 65 individual triggers cause mobile scroll snapping
   const flames = item.spiceLevel ? spiceFlames[item.spiceLevel] : null;
 
   return (
     <div
-      ref={ref}
       style={{
         borderTop: '1px solid rgba(244,187,68,0.15)',
         borderLeft: item.featured ? '3px solid #F4BB44' : '3px solid transparent',
@@ -138,12 +124,27 @@ function CategorySection({ categoryId }: { categoryId: MenuCategory }) {
   return (
     <section id={categoryId} style={{ marginBottom: '4rem' }}>
       {/* Category heading */}
-      <div ref={headingRef} style={{ marginBottom: '1.5rem', paddingBottom: '0.75rem', borderBottom: '1px solid rgba(244,187,68,0.2)' }}>
+      <div
+        ref={headingRef}
+        style={{
+          marginBottom: '1.5rem',
+          background: 'linear-gradient(90deg, rgba(244,187,68,0.1) 0%, transparent 100%)',
+          borderLeft: '4px solid #F4BB44',
+          borderRadius: '0 4px 4px 0',
+          padding: '0.85rem 1.25rem',
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '1.4rem' }}>{meta.icon}</span>
+          <span style={{ fontSize: '1.6rem', lineHeight: 1 }}>{meta.icon}</span>
           <h2
             className="font-display"
-            style={{ fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', fontWeight: 600, color: '#fdf6ec', letterSpacing: '0.02em' }}
+            style={{
+              fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
+              fontWeight: 700,
+              color: '#fdf6ec',
+              letterSpacing: '0.01em',
+              lineHeight: 1,
+            }}
           >
             {meta.label}
           </h2>
@@ -205,11 +206,18 @@ export default function MenuPage() {
     return () => observer.disconnect();
   }, []);
 
-  // Auto-scroll the nav tab strip so the active pill stays visible
+  // Auto-scroll only the nav tab strip horizontally so the active pill stays visible.
+  // We manually set scrollLeft instead of scrollIntoView — scrollIntoView also scrolls
+  // the page vertically on mobile, which is what was causing the snap-to-top bug.
   useEffect(() => {
     if (!navRef.current || activeCategory === 'all') return;
-    const btn = navRef.current.querySelector(`[data-cat="${activeCategory}"]`) as HTMLElement | null;
-    if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    const nav = navRef.current;
+    const btn = nav.querySelector(`[data-cat="${activeCategory}"]`) as HTMLElement | null;
+    if (!btn) return;
+    const navRect = nav.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+    const offset = btnRect.left - navRect.left - navRect.width / 2 + btnRect.width / 2;
+    nav.scrollLeft += offset;
   }, [activeCategory]);
 
   const scrollToCategory = (id: MenuCategory) => {
