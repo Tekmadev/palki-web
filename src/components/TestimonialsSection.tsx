@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { testimonials } from '@/data/testimonials';
 import { Star } from 'lucide-react';
+import { business } from '@/data/business';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,12 +151,12 @@ export default function TestimonialsSection() {
         {/* Footer */}
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.75rem' }}>
           <a
-            href="https://g.co/kgs/palki-ottawa"
+            href={business.address.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="link-arrow"
           >
-            All reviews on Google <span style={{ fontSize: '0.9em' }}>↗</span>
+            Find us on Google <span style={{ fontSize: '0.9em' }}>↗</span>
           </a>
         </div>
       </div>

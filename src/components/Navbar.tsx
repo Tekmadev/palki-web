@@ -9,7 +9,6 @@ import { business } from '@/data/business';
 const navLinks = [
   { label: 'Menu', href: '/menu' },
   { label: 'Banquets', href: '/banquet' },
-  { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -212,7 +211,7 @@ export default function Navbar() {
       {mobileOpen && (
         <div
           ref={mobileMenuRef}
-          className="fixed top-[72px] left-0 right-0 z-40 md:hidden"
+          className="fixed top-18 left-0 right-0 z-40 md:hidden"
           style={{
             background: 'rgba(13, 4, 9, 0.97)',
             backdropFilter: 'blur(20px)',
