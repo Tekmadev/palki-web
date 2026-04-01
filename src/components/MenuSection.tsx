@@ -26,13 +26,11 @@ const dietColors: Record<string, string> = {
 const featuredItems = menuItems.filter(i => i.featured);
 
 /* ─── Menu card ──────────────────────────────────────────────── */
-function MenuCard({ item, index }: { item: typeof menuItems[0]; index: number }) {
-  const isWide = index % 5 === 0;
+function MenuCard({ item }: { item: typeof menuItems[0] }) {
   return (
     <article
       className="menu-card"
       style={{
-        gridColumn: isWide ? 'span 2' : 'span 1',
         borderTop: '1px solid rgba(244,187,68,0.18)',
         borderLeft: '3px solid #F4BB44',
         padding: '1.5rem 1.25rem 1.25rem',
@@ -46,7 +44,7 @@ function MenuCard({ item, index }: { item: typeof menuItems[0]; index: number })
     >
       {/* Name + price */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.6rem' }}>
-        <h3 className="font-display" style={{ fontSize: isWide ? '1.55rem' : '1.3rem', fontWeight: 600, color: '#fdf6ec', lineHeight: 1.1 }}>
+        <h3 className="font-display" style={{ fontSize: '1.3rem', fontWeight: 600, color: '#fdf6ec', lineHeight: 1.1 }}>
           {item.name}
         </h3>
         <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 700, color: '#F4BB44', whiteSpace: 'nowrap', marginTop: '2px' }}>
@@ -138,8 +136,8 @@ export default function MenuSection() {
           ref={gridRef}
           style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))', borderBottom: '1px solid rgba(244,187,68,0.18)' }}
         >
-          {featuredItems.map((item, i) => (
-            <MenuCard key={item.id} item={item} index={i} />
+          {featuredItems.map((item) => (
+            <MenuCard key={item.id} item={item} />
           ))}
         </div>
 
