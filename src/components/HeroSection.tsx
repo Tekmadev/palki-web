@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import dynamic from 'next/dynamic';
 import { ChevronDown } from 'lucide-react';
@@ -128,6 +129,8 @@ export default function HeroSection() {
           zIndex: 2,
           paddingTop: '120px',
           paddingBottom: '80px',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
         }}
       >
         <div style={{ maxWidth: '720px' }}>
@@ -256,13 +259,13 @@ export default function HeroSection() {
             >
               Reserve a Table
             </a>
-            <button
-              onClick={scrollToMenu}
+            <Link
+              href="/menu"
               className="btn btn-outline"
               style={{ fontSize: '0.88rem', padding: '1rem 2.2rem' }}
             >
               View Our Menu
-            </button>
+            </Link>
           </div>
 
           {/* Stats */}

@@ -15,7 +15,7 @@ export const business = {
   // ── Contact ────────────────────────────────────────────────
   phone: {
     display: '(613) 822-7772',
-    tel:     '+16138227772',                   // used in href="tel:..."
+    tel:     'tel:+16138227772',
   },
   email: 'info@palkirestaurant.ca',            // ← update with real email
 
@@ -49,7 +49,7 @@ export const business = {
     capacity: 150,
     phone: {
       display: '(613) 822-7772',
-      tel:     '+16138227772',
+      tel:     'tel:+16138227772',
     },
   },
 
