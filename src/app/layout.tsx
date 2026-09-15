@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { business } from "@/data/business";
+import { siteUrl } from "@/lib/site";
+import { restaurantJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-display",
@@ -25,12 +28,17 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: business.seo.title,
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: business.seo.title,
+    template: `%s | ${business.fullName}`,
+  },
   description: business.seo.description,
   keywords: [...business.seo.keywords],
   openGraph: {
     title: business.fullName,
     description: business.seo.description,
+    siteName: business.fullName,
     type: "website",
     locale: "en_CA",
   },
@@ -44,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en-CA" className={`${cormorant.variable} ${inter.variable}`}>
       <body className="antialiased">
+        <JsonLd data={restaurantJsonLd()} />
         {children}
       </body>
     </html>

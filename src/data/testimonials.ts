@@ -51,16 +51,6 @@ export const testimonials: Testimonial[] = [
     eventType: 'dine-in',
   },
   {
-    id: 't5',
-    name: 'Jennifer & David Liu',
-    avatar: 'JL',
-    rating: 5,
-    text: 'Our company\'s annual gala was hosted at Palki and it was a resounding success. The banquet team handled everything professionally. The food stations were incredible — guests loved the live tandoor experience.',
-    date: '2 months ago',
-    source: 'google',
-    eventType: 'banquet',
-  },
-  {
     id: 't6',
     name: 'Fatima Al-Hassan',
     avatar: 'FA',

@@ -9,15 +9,15 @@ const { hours } = business;
 const footerLinks = {
   Explore: [
     { label: 'Our Menu', href: '#menu' },
-    { label: 'Banquet Hall', href: '/banquet' },
+    { label: 'Banquets & Catering', href: '/banquet' },
     { label: 'About Palki', href: '#about' },
     { label: 'Reviews', href: '#reviews' },
   ],
   Events: [
-    { label: 'Plan an Event', href: '/banquet' },
-    { label: 'Weddings', href: '/banquet#weddings' },
-    { label: 'Corporate Events', href: '/banquet#corporate' },
-    { label: 'Private Dining', href: '#contact' },
+    { label: 'Banquet Packages', href: '/banquet#packages' },
+    { label: 'Catering', href: '/banquet#catering' },
+    { label: 'Request a Quote', href: '/banquet#quote' },
+    { label: 'FAQ', href: '/banquet#faq' },
   ],
 };
 

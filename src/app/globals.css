@@ -388,6 +388,198 @@ textarea.form-input {
   padding-top: 1.5rem;
 }
 
+/* ── Quote form (banquet page) */
+.field-set {
+  border: 0;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: rgba(253, 246, 236, 0.55);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.field-input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  background: rgba(45, 17, 23, 0.6);
+  border: 1px solid rgba(244, 187, 68, 0.2);
+  border-radius: 10px;
+  color: var(--color-cream);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.field-input::placeholder {
+  color: rgba(253, 246, 236, 0.3);
+}
+
+.field-input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(244, 187, 68, 0.1);
+}
+
+.field-input[aria-invalid="true"] {
+  border-color: #f87171;
+}
+
+.field-input[type="date"] {
+  color-scheme: dark;
+}
+
+select.field-input {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23F4BB44' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+}
+
+select.field-input option {
+  background: var(--color-burgundy-800);
+  color: var(--color-cream);
+}
+
+textarea.field-input {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.field-hint,
+.field-error {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.field-hint {
+  color: rgba(253, 246, 236, 0.4);
+}
+
+.field-error {
+  color: #fca5a5;
+}
+
+/* Segmented radio choices — the real radio stays on top (invisible) so it keeps keyboard and screen reader support */
+.choice-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.choice {
+  position: relative;
+  flex: 1 1 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  background: rgba(45, 17, 23, 0.6);
+  border: 1px solid rgba(244, 187, 68, 0.2);
+  border-radius: 10px;
+  color: rgba(253, 246, 236, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.choice input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.choice-detail {
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.choice:hover {
+  border-color: rgba(244, 187, 68, 0.45);
+}
+
+.choice:has(input:checked) {
+  border-color: var(--color-gold);
+  background: rgba(244, 187, 68, 0.12);
+  color: var(--color-gold);
+}
+
+.choice:has(input:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(244, 187, 68, 0.3);
+}
+
+/* ============================================
+   FAQ
+   ============================================ */
+
+.faq-item {
+  border-bottom: 1px solid rgba(244, 187, 68, 0.12);
+}
+
+.faq-item summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  color: var(--color-cream);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary:hover {
+  color: var(--color-gold);
+}
+
+.faq-item summary:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.faq-item summary h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  color: var(--color-gold);
+  transition: transform var(--transition-fast);
+}
+
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  max-width: 65ch;
+  padding-bottom: 1.25rem;
+  color: rgba(253, 246, 236, 0.6);
+  font-size: 0.925rem;
+  line-height: 1.7;
+}
+
 /* ============================================
    ANIMATIONS
    ============================================ */

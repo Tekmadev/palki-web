@@ -4,25 +4,42 @@ import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Users, Mic2, ChefHat, Palette, Wine, Car, ArrowRight } from 'lucide-react';
-import { banquetAmenities } from '@/data/banquet';
+import { Award, Gem, ListChecks, ChefHat, ArrowRight } from 'lucide-react';
+import { business } from '@/data/business';
+import { banquetPackages, formatPrice, packageInclusions, type PackageId } from '@/data/banquet';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const iconMap: Record<string, React.ReactNode> = {
-  '👥': <Users size={18} />,
-  '🎙️': <Mic2 size={18} />,
-  '🍽️': <ChefHat size={18} />,
-  '🌿': <Palette size={18} />,
-  '🍸': <Wine size={18} />,
-  '🅿️': <Car size={18} />,
-};
+const { minGuests, maxGuests } = business.banquet;
 
 const highlights = [
-  { stat: '150', label: 'Seated guests' },
-  { stat: '8hr', label: 'Max venue access' },
-  { stat: '3', label: 'Event packages' },
-  { stat: '24/7', label: 'Events team' },
+  { stat: `${minGuests}–${maxGuests}`, label: 'Guests' },
+  { stat: formatPrice(Math.min(...banquetPackages.map((p) => p.pricePerPerson))), label: 'From, per person' },
+  { stat: String(banquetPackages.length), label: 'Simple packages' },
+  { stat: 'Free', label: 'Quotes' },
+];
+
+const packageIcons: Record<PackageId, React.ReactNode> = {
+  gold: <Award size={18} />,
+  diamond: <Gem size={18} />,
+};
+
+const offerings = [
+  ...banquetPackages.map((p) => ({
+    icon: packageIcons[p.id],
+    title: `${p.name} Package`,
+    description: `${formatPrice(p.pricePerPerson)} per person + tax · ${p.itemsPerCourse} items per course`,
+  })),
+  {
+    icon: <ListChecks size={18} />,
+    title: 'Included with Both',
+    description: packageInclusions.filter((i) => i.icon !== 'guests').map((i) => i.label).join(' · '),
+  },
+  {
+    icon: <ChefHat size={18} />,
+    title: 'Catering',
+    description: 'Having your event somewhere else? Order from our menu, priced by quote.',
+  },
 ];
 
 export default function BanquetSection() {
@@ -66,7 +83,7 @@ export default function BanquetSection() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '4rem' }}>
           <span style={{ fontFamily: 'var(--font-display)', fontSize: '4rem', fontWeight: 300, color: 'rgba(244,187,68,0.2)', lineHeight: 1, letterSpacing: '-0.04em' }}>03</span>
           <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg,rgba(244,187,68,0.3),transparent)' }} />
-          <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(244,187,68,0.6)' }}>Events & Banquets</span>
+          <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(244,187,68,0.6)' }}>Banquets & Catering</span>
         </div>
 
         {/* ── Two-column: large bold text left, content right ── */}
@@ -85,13 +102,13 @@ export default function BanquetSection() {
                 marginBottom: '2rem',
               }}
             >
-              Grand<br />
-              <em style={{ fontStyle: 'italic', color: '#F4BB44' }}>Banquet</em><br />
-              Hall.
+              Banquets<br />
+              <em style={{ fontStyle: 'italic', color: '#F4BB44' }}>& Catering.</em>
             </h2>
 
-            <p style={{ color: 'rgba(253,246,236,0.55)', fontSize: '1rem', lineHeight: 1.8, maxWidth: '340px', marginBottom: '2.5rem' }}>
-              From an intimate dinner of 30 to a grand wedding of 150 — Palki transforms your vision into an unforgettable evening.
+            <p style={{ color: 'rgba(253,246,236,0.55)', fontSize: '1rem', lineHeight: 1.8, maxWidth: '360px', marginBottom: '2.5rem' }}>
+              Host {minGuests} to {maxGuests} guests in our banquet hall, or have Palki cater your event
+              from our menu. Tell us what you&apos;re planning and we&apos;ll send you a free quote.
             </p>
 
             {/* Stats row — no boxes, just divider lines */}
@@ -104,18 +121,23 @@ export default function BanquetSection() {
               ))}
             </div>
 
-            <Link href="/banquet" className="btn btn-primary" style={{ display: 'inline-flex' }}>
-              Plan Your Event <ArrowRight size={14} />
-            </Link>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1.5rem' }}>
+              <Link href="/banquet#quote" className="btn btn-primary" style={{ display: 'inline-flex' }}>
+                Get a Free Quote <ArrowRight size={14} />
+              </Link>
+              <Link href="/banquet#packages" className="link-arrow">
+                See Packages
+              </Link>
+            </div>
           </div>
 
           {/* RIGHT */}
           <div ref={rightRef} style={{ opacity: 0 }}>
-            {/* Amenities — stacked list, NOT cards */}
+            {/* Packages & catering — stacked list, NOT cards */}
             <div>
-              {banquetAmenities.map((a, i) => (
+              {offerings.map((o, i) => (
                 <div
-                  key={a.title}
+                  key={o.title}
                   style={{
                     display: 'flex',
                     gap: '1.25rem',
@@ -142,11 +164,11 @@ export default function BanquetSection() {
                       clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))',
                     }}
                   >
-                    {iconMap[a.icon] ?? <span>{a.icon}</span>}
+                    {o.icon}
                   </div>
                   <div>
-                    <div style={{ color: '#fdf6ec', fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.2rem' }}>{a.title}</div>
-                    <p style={{ color: 'rgba(253,246,236,0.45)', fontSize: '0.8rem', lineHeight: 1.6 }}>{a.description}</p>
+                    <div style={{ color: '#fdf6ec', fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.2rem' }}>{o.title}</div>
+                    <p style={{ color: 'rgba(253,246,236,0.45)', fontSize: '0.8rem', lineHeight: 1.6 }}>{o.description}</p>
                   </div>
                 </div>
               ))}
@@ -160,7 +182,7 @@ export default function BanquetSection() {
                 We host
               </p>
               <p style={{ color: 'rgba(253,246,236,0.5)', fontSize: '0.9rem', lineHeight: 1.9 }}>
-                {['Weddings & Receptions', 'Mehndi & Sangeet', 'Corporate Galas', 'Milad Functions', 'Graduations', 'Birthday Celebrations'].join(' · ')}
+                {['Weddings & Receptions', 'Mehndi & Sangeet', 'Corporate Events', 'Milad Functions', 'Graduations', 'Birthday Celebrations'].join(' · ')}
               </p>
             </div>
           </div>

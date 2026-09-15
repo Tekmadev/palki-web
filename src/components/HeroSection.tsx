@@ -281,7 +281,7 @@ export default function HeroSection() {
           >
             {[
               { number: '20+', label: 'Years of Excellence' },
-              { number: '150', label: 'Banquet Capacity' },
+              { number: String(business.banquet.maxGuests), label: 'Banquet Capacity' },
               { number: '500+', label: 'Five-Star Reviews' },
             ].map((stat) => (
               <div key={stat.label}>

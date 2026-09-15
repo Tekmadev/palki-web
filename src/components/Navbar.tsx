@@ -8,7 +8,7 @@ import { business } from '@/data/business';
 
 const navLinks = [
   { label: 'Menu', href: '/menu' },
-  { label: 'Banquets', href: '/banquet' },
+  { label: 'Banquets & Catering', href: '/banquet' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -19,6 +19,7 @@ const linkStyle: React.CSSProperties = {
   letterSpacing: '0.06em',
   textTransform: 'uppercase',
   textDecoration: 'none',
+  whiteSpace: 'nowrap',
   transition: 'color 0.2s ease',
   background: 'none',
   border: 'none',
@@ -83,7 +84,7 @@ export default function Navbar() {
         }}
       >
         <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', height: '72px' }}>
 
             {/* Logo */}
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none', flexShrink: 0 }}>
@@ -100,8 +101,9 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Links — hidden on mobile via Tailwind, NO inline display style */}
-            <div className="hidden md:flex" style={{ alignItems: 'center', gap: '2.5rem' }}>
+            {/* Desktop Links — hidden on mobile via Tailwind, NO inline display style.
+                Tighter gap on tablets so "Banquets & Catering" still fits beside the logo. */}
+            <div className="hidden md:flex md:gap-4 lg:gap-10" style={{ alignItems: 'center' }}>
               {navLinks.map((link) =>
                 link.href.startsWith('#') ? (
                   <button

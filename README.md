@@ -20,6 +20,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Quote Request Emails
+
+The quote form on `/banquet` emails each request through [Resend](https://resend.com). Nothing is booked by the form; it only sends the details to the restaurant, with reply-to set to the customer.
+
+1. Create an API key at [resend.com/api-keys](https://resend.com/api-keys).
+2. Verify the restaurant's domain in Resend (Domains → Add Domain, then add the DNS records it shows).
+3. Copy `.env.example` to `.env.local` and fill in `RESEND_API_KEY`, `QUOTE_EMAIL_TO` and `QUOTE_EMAIL_FROM`. Add the same variables in Vercel under Settings → Environment Variables, then redeploy.
+
+Until those are set, the form shows visitors a "please call us" message and logs what's missing on the server.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
